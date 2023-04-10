@@ -27,7 +27,7 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 
 def GPT_response(text):
     # 接收回應
-    response = openai.Completion.create(model=f"text-davinci-003", prompt=text, temperature=0, max_tokens=200)
+    response = openai.Completion.create(model=f"gpt-4", prompt=text, temperature=0, max_tokens=200)
     print(response)
     # 重組回應
     answer = response['choices'][0]['text'].replace('\n','').replace('。','')
