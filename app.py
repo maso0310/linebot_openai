@@ -56,7 +56,7 @@ def handle_message(event):
     msg = event.message.text
     GPT_answer = GPT_response(msg)
     print(GPT_answer)
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(msg))
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(GPT_answer))
 
 @handler.add(PostbackEvent)
 def handle_message(event):
