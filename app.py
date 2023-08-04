@@ -24,7 +24,11 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)#這個函式要處理 MessageEvent 事件且訊息型別為 TextMessage
 def handle_message(event):#event 是 LINE Bot 收到的事件資料，其中包含了使用者傳來的訊息內容等資訊。
     message = TextSendMessage(text=event.message.text)#使用者傳來的文字訊息內容（event.message.text），將其包裝成TextSendMessage 物件，用於 LINE Bot 回覆訊息的物件類型。
-    line_bot_api.reply_message(event.reply_token, message)
+    if message.startswith("梗圖支援 ")
+        line_bot_api.reply_message(event.reply_token, "蛤")
+    else:
+        line_bot_api.reply_message(event.reply_token, message)
+    
 
 import os
 if __name__ == "__main__":
