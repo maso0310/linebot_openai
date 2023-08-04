@@ -21,13 +21,20 @@ def callback():
         abort(400)
     return 'OK'
 
-@handler.add(MessageEvent, message=TextMessage)#這個函式要處理 MessageEvent 事件且訊息型別為 TextMessage
-def handle_message(event):#event 是 LINE Bot 收到的事件資料，其中包含了使用者傳來的訊息內容等資訊。
-    message = TextSendMessage(text=event.message.text)#使用者傳來的文字訊息內容（event.message.text），將其包裝成TextSendMessage 物件，用於 LINE Bot 回覆訊息的物件類型。
-    if message.text.startswith("梗圖支援 "):
-        line_bot_api.reply_message(event.reply_token, "蛤")
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    if event.message.text.startswith("梗圖支援 "):
+        # 如果使用者傳來的訊息開頭是 "梗圖支援 "，則回覆 "蛤"
+        reply_text = "蛤"
     else:
-        line_bot_api.reply_message(event.reply_token, message)
+        # 否則回覆使用者傳來的訊息內容
+        reply_text = event.message.text
+
+    # 將回覆的文字訊息包裝成 TextSendMessage 物件
+    message = TextSendMessage(text=reply_text)
+
+    # 使用 line_bot_api 回覆訊息給使用者
+    line_bot_api.reply_message(event.reply_token, message)
     
 
 import os
