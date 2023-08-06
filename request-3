@@ -1,0 +1,39 @@
+from requests_html import HTMLSession
+import webbrowser
+from bs4 import BeautifulSoup
+
+
+
+# 创建HTML会话对象
+session = HTMLSession()
+
+# 定义URL
+url = 'https://www.google.com/search?q=yee%20%E6%A2%97%E5%9C%96&tbm=isch'  # 将URL替换为你要获取的网页地址
+
+# 发送GET请求
+response = session.get(url)
+
+# 渲染JavaScript，timeout参数用于等待渲染完成的时间
+response.html.render(timeout=20)
+
+# 获取渲染后的HTML内容
+html_content = response.html.html
+
+# 将HTML内容写入临时文件
+with open('temp.html', 'w', encoding='utf-8') as f:
+    f.write(response.text)
+
+# 用默认的浏览器打开临时文件
+webbrowser.open('temp.html')
+#发送GET请求
+
+
+# 使用Beautiful Soup解析HTML
+soup = BeautifulSoup(html_content, 'html.parser')
+
+# 这里使用.find_all()方法，如果只想找到第一个匹配的父节点，可以使用.find()方法
+parents = soup.find_all('h3', class_='bytUYc')
+
+# 输出找到的父节点
+for parent in parents:
+    print(parent.parent)  # 输出父节点

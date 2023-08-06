@@ -26,6 +26,8 @@ def handle_message(event):
     if event.message.text.startswith("梗圖支援 "):
         # 如果使用者傳來的訊息開頭是 "梗圖支援 "，則回覆 "蛤"
         reply_text = "蛤"
+    elif event.message.text.startswith("語錄支援"):
+        reply_text = "還很笨"
     else:
         # 否則回覆使用者傳來的訊息內容
         reply_text = event.message.text
