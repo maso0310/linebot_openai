@@ -31,7 +31,10 @@ init_params = {
 }
 def get_img_url(keyword):
     google_crawler = GoogleImageCrawler(**init_params)
-    google_crawler.crawl(keyword=keyword, max_num=1)  # 根据需要调整参数
+    google_crawler.crawl(keyword=keyword+" 梗圖", max_num=1)  # 根据需要调整参数
 
     file_urls = google_crawler.downloader.file_urls
-    return file_urls[0]
+    if(file_urls[0]):
+        return file_urls[0]
+    else:
+        return "https://img.lovepik.com/element_origin_pic/17/06/23/e1bdda228c32af4d02c819dc7aa7af40.png_wh300.png"
