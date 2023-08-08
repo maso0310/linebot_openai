@@ -2,7 +2,7 @@ line-bot-sdk
 flask
 requests
 gunicorn
-
+icrawler
 
 
 

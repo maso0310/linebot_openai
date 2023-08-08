@@ -3,6 +3,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
+import request_4
 
 app = Flask(__name__)
 
@@ -25,16 +26,16 @@ def callback():
 def handle_message(event):
     if event.message.text.startswith("梗圖支援 "):
         # 如果使用者傳來的訊息開頭是 "梗圖支援 "，則回覆 "蛤"
-        reply_text = "蛤"
-    elif event.message.text.startswith("語錄支援"):
-        reply_text = "還很笨"
-    else:
-        # 否則回覆使用者傳來的訊息內容
-        reply_text = event.message.text
+        reply = request_4.get_img_url(event.message.text[4:])
+    # elif event.message.text.startswith("語錄支援"):
+    #     reply = "還很笨"
+    # # else:
+    #     # 否則回覆使用者傳來的訊息內容
+    #     reply = event.message.text
 
     # 將回覆的文字訊息包裝成 TextSendMessage 物件
-    message = TextSendMessage(text=reply_text)
-
+    #message = TextSendMessage(text=reply)
+    message = ImageSendMessage(original_content_url = reply,preview_image_url = reply)
     # 使用 line_bot_api 回覆訊息給使用者
     line_bot_api.reply_message(event.reply_token, message)
     
