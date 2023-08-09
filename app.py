@@ -35,6 +35,7 @@ def handle_message(event):
 
     # 將回覆的文字訊息包裝成 TextSendMessage 物件
     #message = TextSendMessage(text=reply)
+        reply = "https://www.minecraft.net/content/dam/games/minecraft/key-art/SUPM_Game-Image_One-Vanilla_672x400.jpg"
     message = ImageSendMessage(original_content_url = reply,preview_image_url = reply)
     # 使用 line_bot_api 回覆訊息給使用者
     line_bot_api.reply_message(event.reply_token, message)
