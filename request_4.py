@@ -38,3 +38,4 @@ def get_img_url(keyword):
         return file_urls[0]
     else:
         return "https://img.lovepik.com/element_origin_pic/17/06/23/e1bdda228c32af4d02c819dc7aa7af40.png_wh300.png"
+print(get_img_url("我要打十個"))
