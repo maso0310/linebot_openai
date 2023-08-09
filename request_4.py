@@ -34,8 +34,10 @@ def get_img_url(keyword):
     google_crawler.crawl(keyword=keyword+" 梗圖", max_num=1)  # 根据需要调整参数
 
     file_urls = google_crawler.downloader.file_urls
+    rtn=""
     if(file_urls[0]):
-        return file_urls[0]
+        rtn = file_urls[0]
     else:
-        return "https://img.lovepik.com/element_origin_pic/17/06/23/e1bdda228c32af4d02c819dc7aa7af40.png_wh300.png"
-print(get_img_url("我要打十個"))
+        rtn = "https://img.lovepik.com/element_origin_pic/17/06/23/e1bdda228c32af4d02c819dc7aa7af40.png_wh300.png"
+    print("result",rtn)
+    return rtn
