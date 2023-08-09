@@ -1,8 +1,9 @@
 from icrawler.downloader import ImageDownloader
 from icrawler.builtin import GoogleImageCrawler
 from icrawler.utils import Session
+import img_check
 
-
+max_num=5
 class CustomLinkPrinter(ImageDownloader):
     file_urls = []
     def get_filename(self, task, default_ext):
@@ -35,17 +36,23 @@ init_params = {
 def get_img_url(keyword="yee"):
     CustomLinkPrinter.file_urls = []  # 清空圖片鏈接列表
     google_crawler = GoogleImageCrawler( **init_params)
-    google_crawler.crawl(keyword=keyword+" 梗圖", max_num=1)  # 根据需要调整参数
+    google_crawler.crawl(keyword=keyword+" 梗圖", max_num=max_num)  # 根据需要调整参数
 
     file_urls = google_crawler.downloader.file_urls
     rtn=""
-    if file_urls:
-        if(file_urls[0].count('http')>1):
-           print("原本:",file_urls[0])
-           file_urls[0] = "http"+file_urls[0].rsplit('http', 1)[-1]
-        rtn =file_urls[0]
-    else:
-        rtn = "https://memeprod.ap-south-1.linodeobjects.com/user-template/0f3ce1930440d817e8a477a175f871ed.png"
-    print("result",rtn)
-    return rtn
-get_img_url("YEE")
+    for i in range(max_num):
+        if file_urls:
+            if(file_urls[i].count('http')>1):
+                print("原本:",file_urls[i])
+                file_urls[i] = "http"+file_urls[i].rsplit('http', 1)[-1]
+            rtn =file_urls[i]
+            if img_check.check_img_url(rtn):
+                print("result in request:",rtn)
+                return rtn
+            elif i==max_num-1:
+                rtn ="https://img.onl/C2QbRo"
+        else:#如果根本沒搜到
+            rtn ="https://img.onl/C2QbRo"
+            return rtn
+    
+get_img_url("一定是廠商的疏失")#測試用

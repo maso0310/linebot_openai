@@ -6,5 +6,5 @@ icrawler
 Pillow
 beautifulsoup4
 lxml
-
+urllib
 
