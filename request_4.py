@@ -38,6 +38,6 @@ def get_img_url(keyword):
     if(file_urls[0]):
         rtn = file_urls[0]
     else:
-        rtn = "https://img.lovepik.com/element_origin_pic/17/06/23/e1bdda228c32af4d02c819dc7aa7af40.png_wh300.png"
+        rtn = "https://memeprod.ap-south-1.linodeobjects.com/user-template/0f3ce1930440d817e8a477a175f871ed.png"
     print("result",rtn)
     return rtn
