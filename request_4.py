@@ -41,10 +41,11 @@ def get_img_url(keyword="yee"):
     rtn=""
     if(file_urls[0]):
         if(file_urls[0].count('http')>1):
+           print("原本:",file_urls[0])
            file_urls[0] = "http"+file_urls[0].rsplit('http', 1)[-1]
         rtn =file_urls[0]
     else:
         rtn = "https://memeprod.ap-south-1.linodeobjects.com/user-template/0f3ce1930440d817e8a477a175f871ed.png"
     print("result",rtn)
     return rtn
-#get_img_url()
+get_img_url("YEE")
