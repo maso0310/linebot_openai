@@ -33,7 +33,7 @@ init_params = {
     # 添加其他参数
 }
 def get_img_url(keyword="yee"):
-    
+    CustomLinkPrinter.file_urls = []  # 清空圖片鏈接列表
     google_crawler = GoogleImageCrawler( **init_params)
     google_crawler.crawl(keyword=keyword+" 梗圖", max_num=1)  # 根据需要调整参数
 
