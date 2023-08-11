@@ -25,9 +25,8 @@ def callback():
 
 @app.route("/wake", methods=['POST'])
 def i_alive():
-    return "i am alive!"
-
-@handler.add(MessageEvent, message=TextMessage)
+    my_variable = '<h1>I alive</h1>'
+    return render_template('index.html', my_variable=my_variable)
 def handle_message(event):
     try:
         if event.message.text.startswith("梗圖支援 "):
