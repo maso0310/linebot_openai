@@ -23,7 +23,7 @@ def callback():
         abort(400)
     return 'OK'
 
-@app.route("/callback", methods=['POST'])
+@app.route("/wake", methods=['POST'])
 def i_alive():
     return "i am alive!"
 
