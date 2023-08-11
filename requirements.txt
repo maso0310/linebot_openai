@@ -6,4 +6,4 @@ icrawler
 Pillow
 beautifulsoup4
 lxml
-youtubesearchpython
+youtubesearchpython==1.6.6
