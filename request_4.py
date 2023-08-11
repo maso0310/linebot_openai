@@ -2,6 +2,7 @@ from icrawler.downloader import ImageDownloader
 from icrawler.builtin import GoogleImageCrawler
 from icrawler.utils import Session
 import img_check
+from youtubesearchpython import VideosSearch
 
 max_num=5
 class CustomLinkPrinter(ImageDownloader):
@@ -54,5 +55,18 @@ def get_img_url(keyword="yee"):
         else:#如果根本沒搜到
             rtn ="https://img.onl/C2QbRo"
             return rtn
+
+def find_video(keyword):
+    videos_search = VideosSearch(keyword, limit = 1)  # 搜尋關鍵字並限制結果數量為 1
+    result = videos_search.result()
     
-get_img_url("一定是廠商的疏失")#測試用
+    if result['result']:
+        first_video = result['result'][0]
+        video_url = f"https://www.youtube.com/watch?v={first_video['id']}"
+        return video_url
+    else:
+        return None
+
+
+
+#get_img_url("一定是廠商的疏失")#測試用

@@ -1,6 +1,6 @@
 import urllib.request
 def check_img_url(url):
-    #url = 'https://memes.tw/meme/d0c0ebb6433fcf9aedcd48e98080e571.png'
+    url = 'https://memeprod.sgp1.digitaloceanspaces.com/user-wtf/1646875056807.jpg'
     try:
         response = urllib.request.urlopen(url)
         if response.status == 200 and response.headers['Content-Type'].startswith('image/') and int(response.headers['Content-Length']) <= 10 * 1024 * 1024:
@@ -18,3 +18,5 @@ def check_img_url(url):
     except ValueError as errv:
         print("Value Error:", errv)
         return False
+    
+print(check_img_url("123"))
