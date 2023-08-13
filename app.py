@@ -36,7 +36,7 @@ def handle_message(event):
             message = ImageSendMessage(original_content_url=reply, preview_image_url=reply)
             line_bot_api.reply_message(event.reply_token, message)
         elif event.message.text=="請支援收銀":
-            reply="我是支援收銀機。/n我會負責支援收銀 和 輸贏/n/n使用方式如下:/n→梗圖支援 梗圖關鍵字/n他會幫你找到最符合關鍵字的梗圖並傳回來/n/n→歌曲支援 歌曲關鍵字/n他會幫你找到最符合關鍵字的歌曲並傳回來 可以直接打歌詞/n/n→請支援收銀/n他會告訴你有什麼可以用的指令/n/n-文字/n他會跟你講ㄧ樣的話/n/n+文字/n他會說 對嘛對嘛/n/n/n如果不是特定的關鍵字的話我是不會回覆的/n/n所以也可以當line KEEP用(吧"
+            reply="我是支援收銀機。%0D%0A 我會負責支援收銀 和 輸贏%0D%0A %0D%0A 使用方式如下:%0D%0A →梗圖支援 梗圖關鍵字%0D%0A 他會幫你找到最符合關鍵字的梗圖並傳回來%0D%0A %0D%0A →歌曲支援 歌曲關鍵字%0D%0A 他會幫你找到最符合關鍵字的歌曲並傳回來 可以直接打歌詞%0D%0A %0D%0A →請支援收銀%0D%0A 他會告訴你有什麼可以用的指令%0D%0A %0D%0A -文字%0D%0A 他會跟你講ㄧ樣的話%0D%0A %0D%0A +文字%0D%0A 他會說 對嘛對嘛%0D%0A %0D%0A %0D%0A 如果不是特定的關鍵字的話我是不會回覆的"
             app.logger.info("我支援了收銀") 
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply))
 
