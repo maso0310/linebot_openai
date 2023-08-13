@@ -57,7 +57,7 @@ def get_img_url(keyword="yee"):
             return rtn
 
 def find_video(keyword):
-    videos_search = VideosSearch(keyword, limit = 1)  # 搜尋關鍵字並限制結果數量為 1
+    videos_search = VideosSearch(keyword+" 歌", limit = 1)  # 搜尋關鍵字並限制結果數量為 1
     result = videos_search.result()
     
     if result['result']:
