@@ -27,6 +27,8 @@ def callback():
 def i_alive():
     my_variable = '<h1>I alive</h1>'
     return render_template('index.html', my_variable=my_variable)
+
+@handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     try:
         if event.message.text.startswith("梗圖支援 "):
