@@ -9,6 +9,16 @@ app = Flask(__name__)
 
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
+# 讀取 bad.txt 文件，每一行都是一個關鍵字
+with open('bad.txt', 'r') as file:
+    bad_keywords = [line.strip() for line in file.readlines()]
+
+def check_keywords(text):
+    for keyword in bad_keywords:
+        if keyword in text:
+            return True
+    return False
+
 
 
 @app.route("/callback", methods=['POST'])
@@ -50,6 +60,10 @@ def handle_message(event):
             reply= request_4.find_video(event.message.text[4:])
             app.logger.info("Song is :"+str(reply))
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply))
+        if check_keywords(event.message.text):
+            app.logger.info(":(")
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="不好欸"))
+
 
 
     except Exception as e:
