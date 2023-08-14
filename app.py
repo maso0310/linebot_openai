@@ -14,6 +14,7 @@ with open('bad.txt', 'r') as file:
     bad_keywords = [line.strip() for line in file.readlines()]
 
 def check_keywords(text):
+    text = text.lower()  # 將字串轉換成小寫
     for keyword in bad_keywords:
         if keyword in text:
             return True
