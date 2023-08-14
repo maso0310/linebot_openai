@@ -3,6 +3,7 @@ from icrawler.builtin import GoogleImageCrawler
 from icrawler.utils import Session
 import img_check
 from youtubesearchpython import VideosSearch
+import requests
 
 max_num=5
 class CustomLinkPrinter(ImageDownloader):
@@ -68,5 +69,26 @@ def find_video(keyword):
         return None
 
 
+def check_keywords(text="柾國"):
+    # GitHub raw URL of your keywords text file
+    github_url = "https://script.google.com/macros/s/AKfycbx17d4w4XmjA4bnvVnTqRa5ReOw7bW3Ea5yXnut9y0lkpw6181bU8m6fRJB9nMiV6MH/exec"
 
+    # Get the keywords from the GitHub text file
+    response = requests.get(github_url)
+    if response.status_code == 200:
+        keywords = response.text.splitlines()
+    else:
+        print("Failed to fetch keywords from GitHub")
+        keywords = []
+
+    # Sample text to check against keywords
+    
+    # Check if the sample text contains any keyword
+    for keyword in keywords:
+        if keyword.lower() in text.lower():
+            return True
+    return False
+
+
+#print(check_keywords())
 #get_img_url("一定是廠商的疏失")#測試用

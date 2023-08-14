@@ -1,0 +1,16 @@
+# 輸入多行文字，每行文字都以換行符號 \n 結尾
+lines = []
+print("請輸入文字，輸入空行以結束：")
+while True:
+    line = input()
+    if line:
+        lines.append(line)
+    else:
+        break
+
+# 使用 \n 將多行文字連接起來
+result = "\\n".join(lines)
+
+# 輸出連接後的文字
+print("連接後的結果：")
+print(result)
