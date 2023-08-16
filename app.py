@@ -35,18 +35,18 @@ def handle_message(event):
             app.logger.info("Meme is :"+str(reply))
             message = ImageSendMessage(original_content_url=reply, preview_image_url=reply)
             line_bot_api.reply_message(event.reply_token, message)
-        elif event.message.text=="請支援收銀":
+        if event.message.text=="請支援收銀":
             reply="我是支援收銀機。\n我會負責支援收銀 和 輸贏\n\n使用方式如下:\n→梗圖支援 梗圖關鍵字\n他會幫你找到最符合關鍵字的梗圖並傳回來\n\n→歌曲支援 歌曲關鍵字\n他會幫你找到最符合關鍵字的歌曲並傳回來 可以直接打歌詞\n\n→請支援收銀\n他會告訴你有什麼可以用的指令\n\n-文字\n他會跟你講ㄧ樣的話\n\n+文字\n他會說 對嘛對嘛\n\n\n如果不是特定的關鍵字的話我是不會回覆的"
             app.logger.info("我支援了收銀") 
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply))
 
-        elif event.message.text.startswith("-"):
+        if event.message.text.startswith("-"):
             app.logger.info("附和")
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text[1:]))
-        elif event.message.text.startswith("+"):
+        if event.message.text.startswith("+"):
             app.logger.info("對嘛對嘛")
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="對嘛對嘛"))
-        elif event.message.text.startswith("歌曲支援 "):
+        if event.message.text.startswith("歌曲支援 "):
             reply= request_4.find_video(event.message.text[4:])
             app.logger.info("Song is :"+str(reply))
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply))

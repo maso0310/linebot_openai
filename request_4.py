@@ -71,18 +71,16 @@ def find_video(keyword):
 
 def check_keywords(text="柾國"):
     # GitHub raw URL of your keywords text file
-    github_url = "https://script.google.com/macros/s/AKfycbx17d4w4XmjA4bnvVnTqRa5ReOw7bW3Ea5yXnut9y0lkpw6181bU8m6fRJB9nMiV6MH/exec"
-
+    github_url = "https://watermelon-1234.github.io/bad_list/index.html"
+    
     # Get the keywords from the GitHub text file
     response = requests.get(github_url)
     if response.status_code == 200:
         keywords = response.text.splitlines()
     else:
         print("Failed to fetch keywords from GitHub")
-        keywords = []
+        return False
 
-    # Sample text to check against keywords
-    
     # Check if the sample text contains any keyword
     for keyword in keywords:
         if keyword.lower() in text.lower():
