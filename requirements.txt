@@ -1,4 +1,9 @@
 line-bot-sdk
 flask
-openai
+requests
 gunicorn
+icrawler
+Pillow
+beautifulsoup4
+lxml
+youtube-search-python

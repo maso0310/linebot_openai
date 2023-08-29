@@ -1,0 +1,33 @@
+import requests
+from bs4 import BeautifulSoup
+
+def search_images_google(search_query, count=5):
+    url = f"https://www.google.com/search?q={search_query}&tbm=isch"
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+    }
+
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    image_urls = []
+    for img in soup.select("img.rg_i"):
+        image_urls.append(img["data-src"])
+        print(img["data-src"])
+        if len(image_urls) >= count:
+            break
+
+    return image_urls
+
+if __name__ == "__main__":
+    # 設定搜尋關鍵字和要抓取的圖片數量
+    search_query = "請支援收銀"
+    num_images = 5
+
+    # 獲取圖片 URL 的列表
+    image_urls = search_images_google(search_query, num_images)
+    # 列印出每個圖片的 URL
+    for idx, img_url in enumerate(image_urls, start=1):
+        print(f"Image {idx}: {img_url}")
