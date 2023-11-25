@@ -1,4 +1,4 @@
 line-bot-sdk
 flask
-openai
+openai < 1.0.0
 gunicorn
