@@ -17,6 +17,7 @@ from Health_Adapter.Google_Health_Adapter.google_health import register_google_h
 from Health_Adapter.Apple_Health_Adapter.apple_health import register_apple_health
 from openai import OpenAI
 from medication_analyzer import analyze_medication_image
+from master_roles import MasterRoles
 
 from Richmenu.richmenu_manager import get_home_rich_menu_id
 from Richmenu.richmenu_paths import project_root, static_root
@@ -1290,6 +1291,9 @@ def get_elder_patient_by_line_user_id(line_user_id):
     取得長者使用者與 patient。
     若使用者已是長者身份，但 patients 尚未建立，會自動建立基本長者資料。
     """
+    test_patient = master_roles.test_patient(line_user_id, "elderly")
+    if test_patient:
+        return test_patient
     connection = get_db_connection()
     try:
         cursor = connection.cursor()
@@ -2598,6 +2602,9 @@ def _caregiver_user(line_user_id):
 
 
 def list_caregiver_patients(line_user_id):
+    test_patient = master_roles.test_patient(line_user_id, "caregiver")
+    if test_patient:
+        return [test_patient]
     caregiver = _caregiver_user(line_user_id)
     connection = get_db_connection()
     try:
@@ -2637,6 +2644,11 @@ def link_caregiver_home_menu(line_user_id):
 
 
 def select_caregiver_patient(line_user_id, slot):
+    test_patient = master_roles.test_patient(line_user_id, "caregiver")
+    if test_patient:
+        if str(slot) != "1":
+            raise RuntimeError("測試模式只有一位測試患者")
+        return test_patient
     caregiver = _caregiver_user(line_user_id)
     patients = list_caregiver_patients(line_user_id)
     try:
@@ -2673,6 +2685,9 @@ def select_caregiver_patient(line_user_id, slot):
 
 
 def get_selected_caregiver_patient(line_user_id, required=True):
+    test_patient = master_roles.test_patient(line_user_id, "caregiver")
+    if test_patient:
+        return test_patient
     caregiver = _caregiver_user(line_user_id)
     connection = get_db_connection()
     try:
@@ -5762,6 +5777,8 @@ def handle_text_message(event):
     user_id = get_user_id(event)
 
     try:
+        if master_roles.handle_text(event):
+            return
         user = get_user(user_id) if user_id else None
 
         if user_id and not user:
@@ -5989,6 +6006,8 @@ def handle_image_message(event):
     user_id = get_user_id(event)
 
     try:
+        if master_roles.prepare(event):
+            return
         if user_id and not get_user(user_id):
             reply_role_selection(event.reply_token)
             return
@@ -6130,6 +6149,9 @@ def handle_postback(event):
             "role",
             [None],
         )[0]
+
+        if master_roles.handle_postback(event, action, params):
+            return
 
         postback_user_id = get_user_id(event)
         postback_user = get_user(postback_user_id) if postback_user_id else None
@@ -6355,7 +6377,9 @@ def handle_postback(event):
 # 初始化與啟動
 # =========================================================
 
+master_roles = MasterRoles(globals())
 init_database()
+master_roles.initialize()
 
 threading.Thread(
     target=temporary_rich_menu_cleanup_worker,
